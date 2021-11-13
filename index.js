@@ -23,6 +23,7 @@ async function run() {
     const database = client.db('car_max_db');
     const productsCollection = database.collection("products");
     const orderCollection = database.collection("user_order");
+    const usersCollection = database.collection("users");
 
     app.get('/', (req, res) =>{
        res.send("Hello carMax")
@@ -40,6 +41,14 @@ async function run() {
       const result = await productsCollection.insertOne(newProduct)
       res.json(result)
    })
+   //  Add New user (POST API)
+   app.post('/users', async(req, res)=>{
+      const newUser = req.body
+      const result = await usersCollection.insertOne(newUsers)
+      res.json(result)
+   })
+
+
    
   } finally {
     // await client.close();
