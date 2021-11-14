@@ -74,11 +74,12 @@ async function run() {
   })
 
   //  Order Post API
-  app.post('/order', async(req, res)=>{
+  app.post('/addorder', async(req, res)=>{
     const order=req.body
     const result = await ordersCollection.insertOne(order)
     res.json(result)
   })
+
 
   
 
