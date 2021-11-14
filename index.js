@@ -50,6 +50,12 @@ async function run() {
       res.json(order)
     })
 
+    // get single product
+    app.get('/singleProduct/:id', async(req, res)=>{
+      const result = await productsCollection.find({_id: ObjectId(req.params.id)}).toArray()
+      res.send(result[0]);
+    })
+
    //  Add Product(POST API)
    app.post('/addproduct', async(req, res)=>{
       const newProduct = req.body
@@ -80,8 +86,11 @@ async function run() {
     res.json(result)
   })
 
-
-  
+  // User order delete
+  app.delete('/delete/:id', async(req, res)=>{
+    const result = await ordersCollection.deleteOne({_id: ObjectId(req.params.id)})
+    res.send(result);
+  })
 
 
    
