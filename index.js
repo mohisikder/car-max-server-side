@@ -35,6 +35,21 @@ async function run() {
        res.send(result)
     })
 
+    // GET all order
+    app.get('/orders', async(req, res)=>{
+      const cursor = ordersCollection.find({})
+      const order = await cursor.toArray()
+      res.json(order)
+    })
+    // GET user wise
+    app.get('/orders', async(req, res)=>{
+      const email = req.query.email
+      const query = {email: email}
+      const cursor = ordersCollection.find(query)
+      const order = await cursor.toArray()
+      res.json(order)
+    })
+
    //  Add Product(POST API)
    app.post('/addproduct', async(req, res)=>{
       const newProduct = req.body
@@ -54,6 +69,8 @@ async function run() {
     const result = await ordersCollection.insertOne(order)
     res.json(result)
   })
+
+  
 
 
    
