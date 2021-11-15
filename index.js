@@ -42,7 +42,7 @@ async function run() {
       res.json(order)
     })
     // GET user wise
-    app.get('/orders', async(req, res)=>{
+    app.get('/orders/:email', async(req, res)=>{
       const email = req.query.email
       const query = {email: email}
       const cursor = ordersCollection.find(query)
@@ -90,6 +90,15 @@ async function run() {
   app.delete('/delete/:id', async(req, res)=>{
     const result = await ordersCollection.deleteOne({_id: ObjectId(req.params.id)})
     res.send(result);
+  })
+
+  // Admin PUT
+  app.put('/users/admin', async(req, res)=>{
+    const user = req.body
+    const filter = {email: user.email}
+    const updateDoc = {$set: {role: 'admin'}}
+    const result = await usersCollection.updateOne(filter, updateDoc)
+    res.json(result)
   })
 
 
