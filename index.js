@@ -50,6 +50,18 @@ async function run() {
       res.json(order)
     })
 
+    // Admin Check
+    app.get('/users/:email', async(req, res)=>{
+      const email = req.params.email
+      const query = {email: email}
+      const user = await usersCollection.findOne(query)
+      let isAdmin = false
+      if(user.rol === 'admin'){
+        isAdmin = true
+      }
+      res.json({admin: isAdmin})
+    })
+
     // get single product
     app.get('/singleProduct/:id', async(req, res)=>{
       const result = await productsCollection.find({_id: ObjectId(req.params.id)}).toArray()
