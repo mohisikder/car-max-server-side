@@ -51,16 +51,17 @@ async function run() {
     })
 
     // Admin Check
-    app.get('/users/:email', async(req, res)=>{
-      const email = req.params.email
-      const query = {email: email}
-      const user = await usersCollection.findOne(query)
-      let isAdmin = false
-      if(user.rol === 'admin'){
-        isAdmin = true
+    app.get('/users/:email', async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const user = await usersCollection.findOne(query);
+      let isAdmin = false;
+      if (user?.role === 'admin') {
+          isAdmin = true;
       }
-      res.json({admin: isAdmin})
-    })
+      res.json({ admin: isAdmin });
+  })
+
 
     // get single product
     app.get('/singleProduct/:id', async(req, res)=>{
